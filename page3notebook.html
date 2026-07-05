@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlineSquared</title>
+    <link rel="stylesheet" href="evilstyle.css">
+</head>
+<body>
+    <div class="sidebar">
+         <nav>
+            <h1>OnlineSquared</h1>
+            <a href="page1home.html">Home</a>
+            <a href="page2comp.html">Monitor</a>
+            <a href="page3notebook.html">Notes</a> 
+            <a href="page4booooks.html">Modules</a> 
+            <a href="page5bulletinboard.html">Bulletin Board</a>
+        </nav>
+    </div>
+
+    <div class="notepad-wrap">
+        <div class="panel-container">
+            <div class="toolbar">
+                <div class="left">
+                    <button id="newBtn" title="New (Ctrl+N)">New</button>
+                    <button id="saveBtn" title="Save / Download (Ctrl+S)">Save</button>
+                    <label for="fileInput" style="display:inline-block;"><button id="openBtn" class="secondary" title="Open local file (Ctrl+O)">Open</button></label>
+                    <input id="fileInput" type="file" accept="text/*">
+                    <button id="clearBtn" class="secondary" title="Clear">Clear</button>
+                </div>
+                <div class="right" style="margin-left:auto; align-items:center;">
+                    <div class="small status" id="status">Autosaved: —</div>
+                </div>
+            </div>
+
+            <div 
+                id="editor" 
+                contenteditable="true" 
+                spellcheck="true" 
+                data-placeholder="Start typing here...">
+            </div>
+        </div>
+    </div>
+
+        <script>
+        (function(){
+            const KEY = 'notepad:page3';
+            const editor = document.getElementById('editor');
+            const status = document.getElementById('status');
+            const saveBtn = document.getElementById('saveBtn');
+            const newBtn = document.getElementById('newBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const fileInput = document.getElementById('fileInput');
+
+            // load from localStorage on start
+            function loadFromStorage(){
+                const txt = localStorage.getItem(KEY);
+                if(txt != null){ editor.innerText = txt; editor.classList.toggle('empty', editor.innerText.trim()===''); updateStatus('Loaded'); }
+                else { editor.innerText = ''; editor.classList.add('empty'); updateStatus('Ready'); }
+            }
+
+            function updateStatus(msg){
+                const t = new Date();
+                status.textContent = msg + ' • ' + t.toLocaleTimeString();
+            }
+
+            // autosave with debounce
+            let autosaveTimer = null;
+            function scheduleSave(){
+                editor.classList.toggle('empty', editor.innerText.trim()==='');
+                if(autosaveTimer) clearTimeout(autosaveTimer);
+                autosaveTimer = setTimeout(()=>{ localStorage.setItem(KEY, editor.innerText); updateStatus('Autosaved'); }, 600);
+            }
+
+            // explicit save -> download as .txt
+            function downloadText(){
+                const text = editor.innerText;
+                const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'notepad.txt';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+                updateStatus('Saved (downloaded)');
+            }
+
+            // clear editor and storage
+            function clearAll(){
+                if(confirm('Clear the note? This will remove the saved content.')){
+                    editor.innerText = '';
+                    localStorage.removeItem(KEY);
+                    editor.classList.add('empty');
+                    updateStatus('Cleared');
+                }
+            }
+
+            // new: clear but keep autosave (asks)
+            function newNote(){
+                if(editor.innerText.trim() && !confirm('Start a new note? Current content will be removed from editor (it remains in storage until saved).')) return;
+                editor.innerText = '';
+                editor.classList.add('empty');
+                updateStatus('New');
+            }
+
+            // open local file
+            fileInput.addEventListener('change', e=>{
+                const f = e.target.files && e.target.files[0];
+                if(!f) return;
+                const reader = new FileReader();
+                reader.onload = ()=>{ editor.innerText = String(reader.result); scheduleSave(); updateStatus('Loaded file'); };
+                reader.readAsText(f);
+            });
+
+            // keyboard shortcuts
+            document.addEventListener('keydown', function(e){
+                if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){
+                    e.preventDefault(); downloadText();
+                }
+                if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='o'){
+                    e.preventDefault(); fileInput.click();
+                }
+                if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='n'){
+                    e.preventDefault(); newNote();
+                }
+            });
+
+            // wire buttons
+            saveBtn.addEventListener('click', downloadText);
+            clearBtn.addEventListener('click', clearAll);
+            newBtn.addEventListener('click', newNote);
+
+            // detect changes in editor
+            editor.addEventListener('input', scheduleSave);
+
+            // initial load
+            loadFromStorage();
+
+            // keep focus in editor for quick typing
+            editor.addEventListener('click', ()=> editor.focus());
+            setTimeout(()=> editor.focus(), 200);
+
+            // helpful beforeunload hint if unsaved typed content differs from storage
+            window.addEventListener('beforeunload', function(e){
+                // no interrupt if same
+                const stored = localStorage.getItem(KEY) || '';
+                if((editor.innerText||'') !== stored){ e.returnValue = 'You have unsaved changes.'; return 'You have unsaved changes.'; }
+            });
+        })();
+        </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+.desk img{
+    width: 1100px;
+    height: 400px;
+    position: absolute;
+    top: 372px;
+    left: 250px;
+    z-index: 1;
+}
+
+body {
+  margin: 0;
+  padding: 0px; /* acts as border space */
+  border: 10px solid #b84f1f; /* your border */
+  min-height: calc(106vh - 40px); /* accounts for padding */
+  box-sizing: border-box;
+  background: linear-gradient(
+                to right,
+                #6d2a0a,    /* Left color */
+                #ff791f,    /* Middle color */
+                #793313     /* Right color */
+            );
+}
+
+.navbar {
+            background: linear-gradient(
+                to right,
+                #b84f1f 0%,    /* Left color */
+                #ff791f 50%,   /* Middle color */
+                #b84f1f 100%   /* Right color */
+            );
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+.monitor {
+    position: absolute;
+    top: 145px;
+    left: 587px;/* 642px */
+    z-index: 5;
+}
+.monitor img:last-child {
+    display: none;
+
+}
+.monitor:hover img:first-child {
+    display: none;
+}
+.monitor:hover img:last-child {
+    display: block;
+}
+
+#mon1{
+    width: 450px;
+    height: 300px;
+}
+#mon2{
+    width: 465px;
+    height: 310px;
+    position: fixed;
+    top: 131px;
+    left: 578px;
+    z-index: 7;
+}
+
+
+
+.shelf {
+    position: absolute;
+    top: 93px;
+    left: 310px; 
+    z-index: 3;
+}
+.shelf img:last-child {
+    display: none;
+}
+.shelf:hover img:first-child {
+    display: none;
+}
+.shelf:hover img:last-child {
+    display: block;
+}
+#shel1{
+    width: 315px;
+    height: 360px;
+}
+#shel2{
+    width: 325px;
+    height: 365px;
+    position: fixed;
+    top: 83px;
+    left: 300px;
+    z-index: 4;
+}
+.notes {
+    position: absolute;
+    top: 440px;
+    left: 300px; 
+    z-index: 3;
+}
+.notes img:last-child {
+    display: none;
+}
+.notes:hover img:first-child {
+    display: none;
+}
+.notes:hover img:last-child {
+    display: block;
+}
+#note1{
+    width: 290px;
+    height: 135px;
+}
+#note2{
+    width: 300px;
+    height: 145px;
+    position: fixed;
+    top: 430px;
+    left: 290px;
+    z-index: 4;
+}
+
+.lists {
+    position: absolute;
+    top: 80px;
+    left: 945px; 
+    z-index: 3;
+}
+.lists img:last-child {
+    display: none;
+}
+.lists:hover img:first-child {
+    display: none;
+}
+.lists:hover img:last-child {
+    display: block;
+}
+#list1{
+    width: 400px;
+    height: 285px;
+}
+#list2{
+    width: 410px;
+    height: 295px;
+    position: fixed;
+    top: 70px;
+    left: 940px;
+    z-index: 4;
+}
+
+.speaker{
+    position: absolute;
+    top: 294px;
+    left: 1083px; 
+    z-index: 5;
+}
+.speaker img:nth-of-type(2) {
+    display: none;
+}
+.speaker:hover img:first-child {
+    display: none;
+}
+.speaker:hover img:nth-of-type(2) {
+    display: block;
+}
+#spk1{
+    width: 150px;
+    height: 140px;
+}
+#spk2{
+    width: 160px;
+    height: 148px;
+    position: fixed;
+    top: 282px;
+    left: 1078px;
+    z-index: 6;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlineSquared</title>
+    <link rel="stylesheet" href="evilstyle.css">
+</head>
+<body>
+    <div class="sidebar">
+         <nav>
+            <h1>OnlineSquared</h1>
+            <a href="page1home.html">Home</a>
+            <a href="page2comp.html">Monitor</a>
+            <a href="page3notebook.html">Notes</a> 
+            <a href="page4booooks.html">Modules</a> 
+            <a href="page5bulletinboard.html">Bulletin Board</a>
+        </nav>
+    </div>
+    <div class="bulletinContainer">
+        <table cellspacing="17" cellpadding="10">
+            <tr>
+                <td>
+                    <div class="row1">
+                        insert image here
+                    </div>
+                </td>
+                <td>
+                    <div class="row2">
+                        insert image here
+                    </div>
+                </td>
+                <td>
+                    <div class="row3">
+                        <img src="otherpix/real_setup.jpg" alt="real">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row1">
+                        
+                    </div>
+                </td>
+                <td>
+                    <div class="row2">
+                        insert image here
+                    </div>
+                </td>
+                <td>
+                    <div class="row3">
+                        insert image here
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row1">
+                        insert image here
+                    </div>
+                </td>
+                <td>
+                    <div class="row2">
+                        insert image here
+                    </div>
+                </td>
+                <td>    
+                    <div class="row3">
+                        insert image here
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+        <script>
+        (function(){
+            // click-to-insert-image for bulletin boxes
+            const container = document.querySelector('.bulletinContainer');
+            if(!container) return;
+            // prepare file input
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            document.body.appendChild(fileInput);
+
+            // attach click handlers to each box
+        container.querySelectorAll('.row1, .row2, .row3').forEach(box=>{
+                // set a data-placeholder attribute so CSS can show placeholder text
+                if(!box.hasAttribute('data-placeholder')) box.setAttribute('data-placeholder', box.textContent.trim() || 'Click to add image');
+                // clear visible text (placeholder handled by CSS ::before)
+                box.textContent = '';
+
+                        box.addEventListener('click', (e)=>{
+                    e.stopPropagation();
+                    // store the clicked box for use after file selection
+                    container._activeBox = box;
+                    fileInput.click();
+                });
+            });
+
+            fileInput.addEventListener('change', function(){
+                const f = this.files && this.files[0];
+                if(!f) return;
+                const reader = new FileReader();
+                reader.onload = function(){
+                    const url = reader.result;
+                    const box = container._activeBox;
+                    if(!box) return;
+                    // remove existing image or placeholder
+                      box.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = f.name || 'Inserted image';
+                      // mark the box so placeholder hides
+                      box.classList.add('has-image');
+                    box.appendChild(img);
+                };
+                reader.readAsDataURL(f);
+                // clear input so same file can be selected again
+                this.value = '';
+            });
+        })();
+        </script>
+</body>
+</html>

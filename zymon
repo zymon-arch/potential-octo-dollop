@@ -1,0 +1,96 @@
+.desk img {
+    width: clamp(200px, 100vw, 1200px);
+    height: clamp(150px, 60vh, 700px);
+    position: absolute;
+    top: 40vh;          /* relative placement */
+    left: 60%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+.monitor {
+    position: absolute;
+    top: 11vh;
+    left: 61%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+.monitor img:last-child { display: none; }
+.monitor:hover img:first-child { display: none; }
+.monitor:hover img:last-child  { display: block; }
+#mon1 { width: clamp(200px, 30vw, 600px);
+     height: clamp(50px, 40vh, 450px); }
+#mon2 { width: clamp(200px, 32vw, 600px);
+      height: clamp(50px, 43vh, 450px); 
+      transform: translate(0%, -5%);
+}
+
+/* Shelf */
+.shelf {
+    position: absolute;
+    top: 3vh;
+    left: 30%;
+    transform: translateX(-10%);
+    z-index: 3;
+}
+.shelf img:last-child { display: none; }
+.shelf:hover img:first-child { display: none; }
+.shelf:hover img:last-child  { display: block; }
+#shel1 { width: clamp(180px, 20vw, 415px);
+     height: clamp(250px, 50vh, 500px);
+    }
+#shel2 { width: clamp(180px, 21vw, 415px);
+     height: clamp(250px, 52vh, 500px);
+      transform: translate(-1%, -3%);
+     }
+
+/* Notes */
+.notes {
+    position: absolute;
+    top: 52vh;
+    left: 29%;
+    transform: translateX(-10%);
+    z-index: 3;
+}
+.notes img:last-child { display: none; }
+.notes:hover img:first-child { display: none; }
+.notes:hover img:last-child  { display: block; }
+#note1 { width: clamp(140px, 29vw, 320px);
+    height: clamp(100px, 20vh, 220px);
+    }
+#note2 { width: clamp(140px, 30vw, 330px);
+     height: clamp(100px, 22vh, 230px);
+      transform: translate(-2%, -4%);
+    }
+
+/* Lists */
+.lists {
+    position: absolute;
+    top: 4vh;
+    left: 70%;
+    transform: translateX(0%);
+    z-index: 3;
+    overflow: visible;
+}
+.lists img:last-child { display: none; }
+.lists:hover img:first-child { display: none; }
+.lists:hover img:last-child  { display: block; }
+#list1 { width: clamp(180px, 25vw, 600px);
+     height: clamp(120px, 35vh, 570px);
+    }
+#list2 { width: clamp(190px, 37vw, 410px);
+        height: clamp(130px, 37vh, 580px);
+      transform: translate(3%, -3%);
+    }
+    .speaker {
+    position: absolute;
+    top: 30vh;
+    left: 79.5%;;
+    z-index: 5;
+}
+.speaker img:nth-of-type(2) { display: none; }
+.speaker:hover img:first-child { display: none; }
+.speaker:hover img:nth-of-type(2) { display: block; }
+#spk1 { width: clamp(80px, 12vw, 150px); }
+#spk2 { width: clamp(90px, 13vw, 160px);
+      transform: translate(0%, -3%);
+    }
